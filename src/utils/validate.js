@@ -47,3 +47,41 @@ export function isFunction (value) {
 export function isRegExp (value) {
   return Object.prototype.toString.call(value) === '[object RegExp]'
 }
+
+// 将Fri Mar 23 2018 12:19:48 GMT+0800 (国际时间)转化为dd-MM-yyyy HH:mm:ss
+export const dateToFormat = (date) => {
+  date.toLocaleString("en-US", { hour12: false }).replace(/\b\d\b/g, '0$&').replace(new RegExp('/', 'gm'), '-')
+}
+
+// 获取当前的时间yyyy-MM-dd HH:mm:ss
+export const obtainDate = () => {
+  let date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let hours = date.getHours();
+  let minu = date.getMinutes();
+  let second = date.getSeconds();
+  //判断是否满10
+  let arr = [month, day, hours, minu, second];
+  arr.forEach(item => {
+    item < 10 ? "0" + item : item;
+  })
+  return year + '-' + arr[0] + '-' + arr[1] + ' ' + arr[2] + ':' + arr[3] + ':' + arr[4]
+}
+
+// 将时间戳转化为yyyy-MM-dd HH:mm:ss
+export const compareTwo = (dateOne, dateTwo) => {
+  return Number(dateOne.replace(/\-/g, "")) < Number(dateTwo.replace(/\-/g, ""))
+}
+
+// 数组对象排序
+export const orderArr = (arr) => {
+  arr.sort((a, b) => {
+    let value1 = a[property];
+    let value2 = b[property];
+    return value1 - value2;//sort方法接收一个函数作为参数，这里嵌套一层函数用
+    //来接收对象属性名，其他部分代码与正常使用sort方法相同
+  })
+}
+
